@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+    /* reset all colors */
+    --color-*: initial;
+}
+
+@layer base {}
