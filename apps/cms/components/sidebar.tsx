@@ -78,7 +78,7 @@ const data = {
         {
           title: "Create Post",
           icon: Plus,
-          url: "#",
+          url: "/dashboard/posts/create",
         },
         {
           title: "Starred",
