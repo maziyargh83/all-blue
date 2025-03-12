@@ -7,10 +7,16 @@ import {
   Bot,
   ChevronRightIcon,
   Command,
+  CreditCard,
+  FilePen,
+  FileText,
   GalleryVerticalEnd,
+  Plus,
   Search,
   Settings2,
-  SquareTerminal,
+  Star,
+  Trash,
+  Users,
 } from "lucide-react";
 
 import { NavUser } from "./nav-user";
@@ -65,67 +71,38 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Posts",
       url: "#",
-      icon: SquareTerminal,
-      isActive: true,
+      icon: FileText,
       items: [
         {
-          title: "History",
+          title: "Create Post",
+          icon: Plus,
           url: "#",
         },
         {
           title: "Starred",
+          icon: Star,
           url: "#",
         },
         {
-          title: "Settings",
+          title: "Drafts",
+          icon: FilePen,
+          url: "#",
+        },
+        {
+          title: "Trash",
+          icon: Trash,
+          url: "#",
+        },
+        {
+          title: "All Posts",
+          icon: FileText,
           url: "#",
         },
       ],
     },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
+
     {
       title: "Settings",
       url: "#",
@@ -133,31 +110,22 @@ const data = {
       items: [
         {
           title: "General",
+          icon: Settings2,
           url: "#",
         },
         {
           title: "Team",
+          icon: Users,
           url: "#",
         },
         {
           title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
+          icon: CreditCard,
           url: "#",
         },
       ],
     },
   ],
-  //   components: Object.values(Index)
-  //     .filter((item) => item.type === "registry:ui")
-  //     .concat([
-  //       {
-  //         name: "combobox",
-  //       },
-  //     ])
-  //     .sort((a, b) => a.name.localeCompare(b.name)),
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -189,7 +157,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <Collapsible
                 key={item.title}
                 asChild
-                defaultOpen={item.isActive}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
@@ -206,6 +173,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
                             <a href={subItem.url}>
+                              {subItem.icon && <subItem.icon />}
                               <span>{subItem.title}</span>
                             </a>
                           </SidebarMenuSubButton>
@@ -216,20 +184,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenuItem>
               </Collapsible>
             ))}
-          </SidebarMenu>
-        </SidebarGroup>
-        <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-          <SidebarGroupLabel>Components</SidebarGroupLabel>
-          <SidebarMenu>
-            {/* {data.components.map((item) => (
-              <SidebarMenuItem key={item.name}>
-                <SidebarMenuButton asChild>
-                  <a href={`/#${item.name}`}>
-                    <span>{getComponentName(item.name)}</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))} */}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
