@@ -13,18 +13,24 @@
   },
   "dependencies": {
     "@all-blue/ui": "workspace:*",
+    "@next/mdx": "^15.2.2",
+    "@tanstack/react-form": "^1.0.5",
+    "@tanstack/react-store": "^0.7.0",
+    "@types/mdx": "^2.0.13",
     "lucide-react": "^0.475.0",
     "next": "^15.2.0",
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@all-blue/lib": "workspace:*",
+    "zod": "3.24.2"
   },
   "devDependencies": {
+    "@all-blue/eslint-config": "workspace:^",
+    "@all-blue/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@all-blue/eslint-config": "workspace:^",
-    "@all-blue/typescript-config": "workspace:*",
     "typescript": "^5.7.3"
   }
 }
