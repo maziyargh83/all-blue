@@ -19,7 +19,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
 }
 
 interface IFormMessage {
-  error?: unknown[];
+  error?: string;
 }
 const FormMessage = ({
   className,
@@ -27,7 +27,7 @@ const FormMessage = ({
   error,
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement> & IFormMessage) => {
-  const body = error ? String(error?.join("")) : children;
+  const body = error ? String(error) : children;
 
   if (!body) {
     return null;

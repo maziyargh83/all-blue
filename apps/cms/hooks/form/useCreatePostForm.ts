@@ -1,4 +1,4 @@
-import { PostModel, type Post } from "@all-blue/lib";
+import { PostCreateModel, type PostCreate } from "@all-blue/lib";
 import { mergeForm, useForm, useTransform } from "@tanstack/react-form";
 import { formOptions, ServerFormState } from "@tanstack/react-form/nextjs";
 export const createPostFormOpts = formOptions({
@@ -7,13 +7,15 @@ export const createPostFormOpts = formOptions({
     content: "",
     createdAt: new Date(),
     updatedAt: new Date(),
-    id: "",
-  } satisfies Post,
+  } satisfies PostCreate,
   validators: {
-    onSubmit: PostModel,
+    onSubmit: PostCreateModel,
+    onChange: PostCreateModel,
   },
 });
-export function useCreatePostForm(state: ServerFormState<any, undefined>) {
+export function useCreatePostForm(
+  state: ServerFormState<PostCreate, undefined>
+) {
   return useForm({
     ...createPostFormOpts,
     transform: useTransform(
