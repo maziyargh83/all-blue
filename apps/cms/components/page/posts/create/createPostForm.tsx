@@ -7,6 +7,7 @@ import { useActionState, useEffect } from "react";
 import { createPost } from "@/lib/actions/posts";
 import { Button } from "@all-blue/ui/components/button";
 import { toast } from "@all-blue/ui/components/sonner";
+import { InputWrapper } from "@/components/ui";
 
 export function CreatePostForm() {
   const [state, action] = useActionState(createPost, initialFormState);
@@ -22,21 +23,23 @@ export function CreatePostForm() {
     <form action={action as never} onSubmit={() => form.handleSubmit()}>
       <form.Field name="title">
         {(field) => (
-          <Input
-            name="title"
-            type="text"
+          <InputWrapper
+            label="Title"
+            error={field.state.meta.errors}
             value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
+            onChange={(value) => field.handleChange(value)}
+            type="text"
           />
         )}
       </form.Field>
       <form.Field name="content">
         {(field) => (
-          <Input
-            name="content"
-            type="text"
+          <InputWrapper
+            label="Content"
+            error={field.state.meta.errors}
             value={field.state.value}
-            onChange={(e) => field.handleChange(e.target.value)}
+            onChange={(value) => field.handleChange(value)}
+            type="text"
           />
         )}
       </form.Field>

@@ -18,4 +18,33 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   );
 }
 
-export { Input };
+interface IFormMessage {
+  error?: unknown[];
+}
+const FormMessage = ({
+  className,
+  children,
+  error,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement> & IFormMessage) => {
+  const body = error ? String(error?.join("")) : children;
+
+  if (!body) {
+    return null;
+  }
+
+  return (
+    <p
+      className={cn(
+        "text-sm font-medium text-destructive my-1 whitespace-pre",
+        className
+      )}
+      {...props}
+    >
+      {body}
+    </p>
+  );
+};
+FormMessage.displayName = "FormMessage";
+
+export { Input, FormMessage };
