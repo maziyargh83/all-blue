@@ -6,28 +6,42 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@all-blue/ui/components/breadcrumb";
+import { cn } from "@all-blue/ui/lib/utils";
 import { headers } from "next/headers";
-
-export const DynamicBreadcrumb = async () => {
+import { Fragment } from "react";
+interface DynamicBreadcrumbProps {
+  className?: string;
+}
+export const DynamicBreadcrumb = async ({
+  className,
+}: DynamicBreadcrumbProps) => {
   const headerStore = await headers();
   const path = headerStore.get("x-pathname");
-  console.log(path);
-
+  const pathParts = path?.split("/").filter(Boolean) ?? [];
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/dashboard/posts">Posts</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Create</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
+    <div className={cn("p-4", className)}>
+      <Breadcrumb>
+        <BreadcrumbList>
+          {pathParts.map((part, index) => {
+            const isLast = index === pathParts.length - 1;
+            const comp = isLast ? (
+              <BreadcrumbPage>{part}</BreadcrumbPage>
+            ) : (
+              <BreadcrumbLink
+                href={`/${pathParts.slice(0, index + 1).join("/")}`}
+              >
+                {part}
+              </BreadcrumbLink>
+            );
+            return (
+              <Fragment key={part + index}>
+                <BreadcrumbItem key={part}>{comp}</BreadcrumbItem>
+                {!isLast && <BreadcrumbSeparator />}
+              </Fragment>
+            );
+          })}
+        </BreadcrumbList>
+      </Breadcrumb>
+    </div>
   );
 };
