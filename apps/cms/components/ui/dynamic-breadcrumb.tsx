@@ -1,3 +1,4 @@
+"use client";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,17 +8,14 @@ import {
   BreadcrumbSeparator,
 } from "@all-blue/ui/components/breadcrumb";
 import { cn } from "@all-blue/ui/lib/utils";
-import { headers } from "next/headers";
+import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 interface DynamicBreadcrumbProps {
   className?: string;
 }
-export const DynamicBreadcrumb = async ({
-  className,
-}: DynamicBreadcrumbProps) => {
-  const headerStore = await headers();
-  const path = headerStore.get("x-pathname");
-  const pathParts = path?.split("/").filter(Boolean) ?? [];
+export const DynamicBreadcrumb = ({ className }: DynamicBreadcrumbProps) => {
+  const pathname = usePathname();
+  const pathParts = pathname.split("/").filter(Boolean);
   return (
     <div className={cn("p-4", className)}>
       <Breadcrumb>
