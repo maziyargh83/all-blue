@@ -11,6 +11,8 @@ export function CreatePostForm() {
   const [state, action] = useActionState(createPost, initialFormState);
   const form = useCreatePostForm(state ?? initialFormState);
   const formErrors = useStore(form.store, (formState) => formState.errors);
+  console.log("formErrors", formErrors);
+
   useEffect(() => {
     if (formErrors) {
       toast.error(formErrors.join(", "));

@@ -1,7 +1,6 @@
 import { PostModel, type Post } from "@all-blue/lib";
 import { mergeForm, useForm, useTransform } from "@tanstack/react-form";
 import { formOptions, ServerFormState } from "@tanstack/react-form/nextjs";
-import { toast } from "@all-blue/ui/components/sonner";
 export const createPostFormOpts = formOptions({
   defaultValues: {
     title: "",
@@ -17,9 +16,9 @@ export const createPostFormOpts = formOptions({
 export function useCreatePostForm(state: ServerFormState<any, undefined>) {
   return useForm({
     ...createPostFormOpts,
-    transform: useTransform((baseForm) => mergeForm(baseForm, state!), [state]),
-    onSubmit: (data) => {
-      toast.success("Post created successfully");
-    },
+    transform: useTransform(
+      (baseForm) => mergeForm(baseForm, state ?? {}),
+      [state]
+    ),
   });
 }
