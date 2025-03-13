@@ -7,15 +7,15 @@ import { useActionState, useEffect } from "react";
 import { createPost } from "@/lib/actions/posts";
 import { Button } from "@all-blue/ui/components/button";
 import { toast } from "@all-blue/ui/components/sonner";
+
 export function CreatePostForm() {
   const [state, action] = useActionState(createPost, initialFormState);
   const form = useCreatePostForm(state ?? initialFormState);
   const formErrors = useStore(form.store, (formState) => formState.errors);
-  console.log("formErrors", formErrors);
 
   useEffect(() => {
     if (formErrors) {
-      toast.error(formErrors.join(", "));
+      toast.error("Error creating post");
     }
   }, [formErrors]);
   return (
