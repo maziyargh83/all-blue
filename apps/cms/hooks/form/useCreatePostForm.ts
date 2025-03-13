@@ -1,13 +1,25 @@
-import { type Post } from "@all-blue/lib";
-import { useForm } from "@tanstack/react-form";
-export function useCreatePostForm() {
+import { PostModel, type Post } from "@all-blue/lib";
+import { mergeForm, useForm, useTransform } from "@tanstack/react-form";
+import { formOptions, ServerFormState } from "@tanstack/react-form/nextjs";
+import { toast } from "@all-blue/ui/components/sonner";
+export const createPostFormOpts = formOptions({
+  defaultValues: {
+    title: "",
+    content: "",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    id: "",
+  } satisfies Post,
+  validators: {
+    onSubmit: PostModel,
+  },
+});
+export function useCreatePostForm(state: ServerFormState<any, undefined>) {
   return useForm({
-    defaultValues: {
-      title: "",
-      content: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      id: "",
-    } satisfies Post,
+    ...createPostFormOpts,
+    transform: useTransform((baseForm) => mergeForm(baseForm, state!), [state]),
+    onSubmit: (data) => {
+      toast.success("Post created successfully");
+    },
   });
 }
