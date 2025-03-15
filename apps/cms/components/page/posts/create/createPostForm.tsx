@@ -23,7 +23,10 @@ export function CreatePostForm() {
             label="Title"
             value={field.state.value}
             onChange={(value) => field.handleChange(value)}
-            type="text"
+            inputProps={{
+              type: "text",
+              name: "title",
+            }}
           />
         )}
       </form.Field>
@@ -35,6 +38,7 @@ export function CreatePostForm() {
             onChange={(value) => field.handleChange(value)}
             textareaProps={{
               rows: 10,
+              name: "content",
             }}
           />
         )}

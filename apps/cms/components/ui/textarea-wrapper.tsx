@@ -15,8 +15,6 @@ export const TextareaWrapper = ({
   onChange,
   textareaProps,
 }: TextareaWrapperProps) => {
-  console.log({ error });
-
   return (
     <div className="flex flex-col gap-2">
       <Label className="text-sm font-medium">{label}</Label>

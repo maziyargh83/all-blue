@@ -5,24 +5,22 @@ interface InputWrapperProps {
   error?: string;
   value: string;
   onChange: (value: string) => void;
-  type: HTMLInputElement["type"];
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 export const InputWrapper = ({
   label,
   error,
-  value,
+  inputProps,
   onChange,
-  type,
+  value,
 }: InputWrapperProps) => {
-  console.log({ error });
-
   return (
     <div className="flex flex-col gap-2">
       <Label className="text-sm font-medium">{label}</Label>
       <Input
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        type={type}
+        onChange={(e) => onChange?.(e.target.value)}
+        {...inputProps}
       />
       <FormMessage error={error} />
     </div>
