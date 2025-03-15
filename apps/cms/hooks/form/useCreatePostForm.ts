@@ -5,8 +5,6 @@ export const createPostFormOpts = formOptions({
   defaultValues: {
     title: "",
     content: "",
-    createdAt: new Date(),
-    updatedAt: new Date(),
   } satisfies PostCreate,
   validators: {
     onSubmit: PostCreateModel,

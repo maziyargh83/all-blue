@@ -1,5 +1,5 @@
 import { createPostFormOpts } from "@/hooks/form/useCreatePostForm";
-import { PostModel } from "@all-blue/lib";
+import { PostCreateModel } from "@all-blue/lib";
 import {
   createServerValidate,
   ServerValidateError,
@@ -7,7 +7,7 @@ import {
 
 const serverValidate = createServerValidate({
   ...createPostFormOpts,
-  onServerValidate: PostModel,
+  onServerValidate: PostCreateModel,
 });
 
 export async function createPost(prev: unknown, formData: FormData) {

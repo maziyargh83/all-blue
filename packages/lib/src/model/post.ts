@@ -9,5 +9,9 @@ export const PostModel = z.object({
 });
 export type Post = z.infer<typeof PostModel>;
 
-export const PostCreateModel = PostModel.omit({ id: true });
+export const PostCreateModel = PostModel.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 export type PostCreate = z.infer<typeof PostCreateModel>;
