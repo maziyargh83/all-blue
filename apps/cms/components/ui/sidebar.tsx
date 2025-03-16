@@ -98,7 +98,7 @@ const data = {
         {
           title: "All Posts",
           icon: FileText,
-          url: "#",
+          url: "/dashboard/posts/all",
         },
       ],
     },

@@ -1,6 +1,6 @@
 "use server";
 import { createPostFormOpts } from "@/hooks/form/useCreatePostForm";
-import { PostCreateModel } from "@all-blue/lib";
+import { Post, PostCreateModel } from "@all-blue/lib";
 import {
   createServerValidate,
   ServerValidateError,
@@ -8,13 +8,13 @@ import {
 import { slugify } from "../string";
 import grayMatter from "gray-matter";
 import path from "node:path";
-import { writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile } from "node:fs/promises";
 import { redirect } from "next/navigation";
 const serverValidate = createServerValidate({
   ...createPostFormOpts,
   onServerValidate: PostCreateModel,
 });
-const docsPath = path.join(process.cwd(), "..", "..", ".docs");
+const docsPath = path.join(process.cwd(), "..", "..", ".docs", "posts");
 
 export async function createPost(prev: unknown, formData: FormData) {
   try {
@@ -38,3 +38,22 @@ export async function createPost(prev: unknown, formData: FormData) {
     throw e;
   }
 }
+export const getPosts = async (): Promise<Post[]> => {
+  const posts = await readdir(docsPath);
+  const data = await Promise.all(
+    posts.map(async (post) => {
+      const filePath = path.join(docsPath, post);
+      const file = await readFile(filePath, "utf-8");
+      const { content, data } = grayMatter(file);
+      return {
+        id: post,
+        title: data.title,
+        slug: data.slug,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+        content: content,
+      } satisfies Post;
+    })
+  );
+  return data;
+};
